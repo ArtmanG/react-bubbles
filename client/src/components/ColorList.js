@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { useHistory } from 'react-router-dom';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const initialColor = {
   color: "",
@@ -10,6 +11,8 @@ const ColorList = ({ colors, updateColors }) => {
   console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
+
+  const history = useHistory();
 
   const editColor = color => {
     setEditing(true);
@@ -24,7 +27,12 @@ const ColorList = ({ colors, updateColors }) => {
   };
 
   const deleteColor = color => {
-    // make a delete request to delete this color
+    axiosWithAuth()
+      .delete(`/api/colors/${color.id}`)
+      .then(res => {
+        updateColors(colors.filter(color => color.id !== res.data));
+        history.push('/bubble-page');
+      });
   };
 
   return (
