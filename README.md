@@ -98,7 +98,7 @@ Build a login form to authenticate your users.
 
 **HTTP/Axios Stretch Problems**
 
-- [x] Build a form at the bottom of `ColorList.js` to add new colors to the colors data
+- [xx] Build a form at the bottom of `ColorList.js` to add new colors to the colors data
 
 **Data Visualization**
 
