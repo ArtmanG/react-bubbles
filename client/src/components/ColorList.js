@@ -21,9 +21,13 @@ const ColorList = ({ colors, updateColors }) => {
 
   const saveEdit = e => {
     e.preventDefault();
-    // Make a put request to save your updated color
-    // think about where will you get the id from...
-    // where is is saved right now?
+    axiosWithAuth()
+      .put(`/api/colors/${colorToEdit.id}`, colorToEdit)
+      .then(res => {
+        updateColors([...colors.filter(color => color.id !== colorToEdit.id), res.data]);
+        history.push('/bubble-page');
+      })
+      .catch(err => console.log(err));
   };
 
   const deleteColor = color => {
@@ -34,6 +38,8 @@ const ColorList = ({ colors, updateColors }) => {
         history.push('/bubble-page');
       });
   };
+ 
+  
 
   return (
     <div className="colors-wrap">
@@ -95,3 +101,15 @@ const ColorList = ({ colors, updateColors }) => {
 };
 
 export default ColorList;
+
+// Adds a color
+// const saveEdit = e => {
+//   e.preventDefault();
+//   axiosWithAuth()
+//     .put(`/api/colors/${colorToEdit.id}`, colorToEdit)
+//     .then(res => {
+//       updateColors([...colors, res.data]);
+//       history.push('/bubble-page');
+//     })
+//     .catch(err => console.log(err));
+// };
